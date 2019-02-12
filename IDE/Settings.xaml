@@ -10,5 +10,9 @@
     <Grid>
         <CheckBox Foreground="White" Content="Remember the last opened file" Height="30" Width="200" Margin="10,10,582,379"/>
         <Button Content="Accept" Height="10" Width="100" Margin="340,384,352,10" Click="Button_Click_Accept"/>
+        <ComboBox Height="20" Width="100" Margin="215,10,477,383" >
+            <ComboBoxItem IsSelected="True" Content="Polish" Selected="ComboBoxItem_Selected_Polish"/>
+            <ComboBoxItem Content="English" Selected="ComboBoxItem_Selected_English"/>
+        </ComboBox>
     </Grid>
 </Window>

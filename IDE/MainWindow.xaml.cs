@@ -29,6 +29,7 @@ namespace IDE
             InitializeComponent();
             _SystemLocalization = System.IO.Path.GetPathRoot(Environment.SystemDirectory);
 
+            Lang.CheckLanguage();
 
             if(_EditedFileLocalization == null)
             {
@@ -50,7 +51,16 @@ namespace IDE
 
             if(!Directory.Exists(_SystemLocalization + "IDE"))
             {
-               MessageBoxResult result = MessageBox.Show("Nie znaleziono folderu 'IDE' na dysku systemowym czy zezwalasz na jego utworzenie? (wymagane aby kontynowac)","IDE", MessageBoxButton.YesNo); 
+                if(Lang.SelectedLang == "PL")
+                {
+                    _TheIDEfolderWasNotfoundMessage = "Nie znaleziono folderu 'IDE' na dysku systemowym czy zezwalasz na jego utworzenie? (wymagane aby kontynowac)";
+                }
+                else if(Lang.SelectedLang == "ENG")
+                {
+                    _TheIDEfolderWasNotfoundMessage = "The 'IDE' folder was not found on the system disk  do you allow it to be created? (required to continue)";
+                }
+                MessageBoxResult result = MessageBox.Show(_TheIDEfolderWasNotfoundMessage,"IDE", MessageBoxButton.YesNo); 
+               
                if(result == MessageBoxResult.Yes)
                {
                     try
@@ -71,6 +81,8 @@ namespace IDE
         private string _SystemLocalization;
         private string _CompilerLocalization;
         private string _EditedFileLocalization;
+        private string _TheIDEfolderWasNotfoundMessage;
+        Lang Lang = new Lang();
 
         private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
         {
