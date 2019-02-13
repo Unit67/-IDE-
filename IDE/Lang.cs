@@ -10,7 +10,8 @@ namespace IDE
     public class Lang
     {
         public string SelectedLang = "PL";
-
+        public string TheIDEfolderWasNotfoundMessage;
+        public string SaveFileError;
         public void CheckLanguage()
         {
             try

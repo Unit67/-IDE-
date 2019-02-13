@@ -48,18 +48,20 @@ namespace IDE
                 }
             }
 
-
-            if(!Directory.Exists(_SystemLocalization + "IDE"))
+            if (Lang.SelectedLang == "PL")
             {
-                if(Lang.SelectedLang == "PL")
-                {
-                    _TheIDEfolderWasNotfoundMessage = "Nie znaleziono folderu 'IDE' na dysku systemowym czy zezwalasz na jego utworzenie? (wymagane aby kontynowac)";
-                }
-                else if(Lang.SelectedLang == "ENG")
-                {
-                    _TheIDEfolderWasNotfoundMessage = "The 'IDE' folder was not found on the system disk  do you allow it to be created? (required to continue)";
-                }
-                MessageBoxResult result = MessageBox.Show(_TheIDEfolderWasNotfoundMessage,"IDE", MessageBoxButton.YesNo); 
+                Lang.TheIDEfolderWasNotfoundMessage = "Nie znaleziono folderu 'IDE' na dysku systemowym czy zezwalasz na jego utworzenie? (wymagane aby kontynowac)";
+                Lang.SaveFileError = "Zapisanie pliku w tym momencie może spodować utratę jego zawartosci czy jesteś pewny?";
+            }
+            else if (Lang.SelectedLang == "ENG")
+            {
+                Lang.TheIDEfolderWasNotfoundMessage = "The 'IDE' folder was not found on the system disk  do you allow it to be created? (required to continue)";
+                Lang.SaveFileError = "Saving the file at the moment can cause you to lose its content, you are sure?";
+            }
+
+            if (!Directory.Exists(_SystemLocalization + "IDE"))
+            {
+                MessageBoxResult result = MessageBox.Show(Lang.TheIDEfolderWasNotfoundMessage,"IDE", MessageBoxButton.YesNo); 
                
                if(result == MessageBoxResult.Yes)
                {
@@ -81,7 +83,6 @@ namespace IDE
         private string _SystemLocalization;
         private string _CompilerLocalization;
         private string _EditedFileLocalization;
-        private string _TheIDEfolderWasNotfoundMessage;
         Lang Lang = new Lang();
 
         private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
@@ -90,7 +91,7 @@ namespace IDE
             {
                 if(CodeEdit.Text != "")
                 {
-                    MessageBoxResult result = MessageBox.Show("Zapisanie pliku w tym momencie może spodować utratę jego zawartosci czy jesteś pewny?", "IDE", MessageBoxButton.YesNo);
+                    MessageBoxResult result = MessageBox.Show(Lang.SaveFileError, "IDE", MessageBoxButton.YesNo);
                     if(result == MessageBoxResult.Yes)
                     {
                         SaveFile();
